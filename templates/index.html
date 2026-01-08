@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>In Corde</title>
+
+    {% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    {% endblock %}
+</head>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (window.twttr && twttr.widgets) {
+            twttr.widgets.load();
+        }
+    });
+</script>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">In Corde</div>
+
+    <nav>
+        {% if session.get("username") %}
+            <span class="user-info">
+                👤 {{ session["username"] }}
+            </span>
+            <a href="/libros">Entrar</a>
+            <a href="/logout">Salir</a>
+        {% else %}
+            <a href="/login">Iniciar sesión</a>
+            <a href="/register">Registrarse</a>
+        {% endif %}
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="overlay">
+        <h1>Un espacio para leer,<br>compartir y descubrir</h1>
+        <p>Únete a nuestro club y forma parte de una comunidad lectora.</p>
+
+        {% if session.get("username") %}
+            <a href="/libros" class="btn">Ir a la aplicación</a>
+        {% else %}
+            <a href="/login" class="btn">Entrar al club</a>
+        {% endif %}
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="feature">
+        <h3>📚 Libros</h3>
+        <p>Explora títulos, autores y editoriales.</p>
+    </div>
+
+    <div class="feature">
+        <h3>🔁 Préstamos</h3>
+        <p>Gestión clara y control de disponibilidad.</p>
+    </div>
+
+    <div class="feature">
+        <h3>✍️ Reseñas</h3>
+        <p>Comparte tu opinión con la comunidad.</p>
+    </div>
+</section>
+
+<!-- EXTRA / SOCIAL FEEDS -->
+<section class="extra">
+    <h2>Próximamente</h2>
+    <p>
+        Noticias y novedades del mundo editorial.
+    </p>
+
+    <div class="social-panels">
+
+        <!-- Librerías Gandhi -->
+        <div class="social-panel">
+            <h3>📚 Librerías Gandhi</h3>
+            <a class="twitter-timeline"
+               data-height="450"
+               data-theme="dark"
+               href="https://twitter.com/LibreriasGandhi">
+               Tweets de Librerías Gandhi
+            </a>
+        </div>
+
+        <!-- El Péndulo -->
+        <div class="social-panel">
+            <h3>📖 Librería El Péndulo</h3>
+            <a class="twitter-timeline"
+               data-height="450"
+               data-theme="dark"
+               href="https://twitter.com/El_Pendulo">
+               Tweets de El Péndulo
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- Script oficial de X (Twitter) -->
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</body>
+</html>
+
+<!-- Script oficial de X (Twitter) -->
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

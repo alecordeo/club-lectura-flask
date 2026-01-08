@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Gestión de clubes</h2>
+
+<h3>Crear nuevo club</h3>
+<form method="POST">
+    <input type="text" name="nombre" placeholder="Nombre del club" required>
+    <textarea name="descripcion" placeholder="Descripción"></textarea>
+    <button type="submit" class="btn btn-primary">Crear club</button>
+</form>
+
+<hr>
+
+<h3>Lista de clubes</h3>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for club in clubes %}
+    <tr>
+        <td>{{ club.nombre }}</td>
+        <td>{{ club.descripcion }}</td>
+        <td>
+            <!-- Editar -->
+            <a href="{{ url_for('editar_club', club_id=club.id) }}">
+                ✏️ Editar
+            </a>
+
+            <!-- Eliminar -->
+            <form method="POST"
+                  action="{{ url_for('eliminar_club', club_id=club.id) }}"
+                  style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm">🗑️ Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

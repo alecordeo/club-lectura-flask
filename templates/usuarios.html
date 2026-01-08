@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Gestión de usuarios</h2>
+
+<table>
+    <tr>
+        <th>Usuario</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acción</th>
+    </tr>
+
+    {% for u in usuarios %}
+    <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.rol }}</td>
+        <td>
+
+            {% if u.rol == "user" %}
+                <form method="POST" action="/usuarios/promover/{{ u.id }}">
+                    <button type="submit" class="btn btn-primary">Hacer admin</button>
+                </form>
+
+            {% elif u.rol == "admin" and u.id != session["user_id"] %}
+                <form method="POST" action="/usuarios/degradar/{{ u.id }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Quitar admin</button>
+                </form>
+
+            {% else %}
+                —
+            {% endif %}
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Aletheia{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+
+<div class="app-container">
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index">
+                    <h1">In Corde</h1>
+                </a>
+            </div>
+
+            {% if session.get("username") %}
+            <div class="user-section">
+                <span class="user-name">{{ session["username"] }}</span>
+                <a href="/logout" class="logout-btn">Cerrar sesión</a>
+            </div>
+            {% else %}
+            <div class="auth-buttons">
+                <a href="/login" class="btn-secondary">Iniciar sesión</a>
+                <a href="/register" class="btn-primary">Registrarse</a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- NAV -->
+    {% if session.get("username") %}
+    <nav class="main-nav">
+        <div class="nav-content">
+            <a href="/index" class="nav-link">
+                <span class="nav-icon"></span>
+                Inicio
+            </a>
+            <a href="/libros" class="nav-link">
+                <span class="nav-icon"></span>
+                Libros
+            </a>
+            <a href="/prestamos" class="nav-link">
+                <span class="nav-icon"></span>
+                Préstamos
+            </a>
+            <a href="/resenas" class="nav-link">
+                <span class="nav-icon"></span>
+                Reseñas
+            </a>
+            {% if session.get("rol") == "admin" %}
+            <a href="/clubes" class="nav-link">
+                <span class="nav-icon"></span>
+                Clubes
+            </a>
+            <a href="/dashboard" class="nav-link">
+                <span class="nav-icon"></span>
+                Dashboard
+            </a>
+            <a href="/usuarios" class="nav-link">
+                <span class="nav-icon"></span>
+                Usuarios
+            </a>
+            {% endif %}
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- CONTENT -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <p>&copy; 2025 In Corde. Un espacio para compartir y descubrir.</p>
+    </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión - Club de Lectura{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+
+    <h2>Bienvenido de nuevo</h2>
+    <p>Ingresa tus credenciales para continuar</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert {{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+
+        <label for="username">Usuario</label>
+        <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Ingresa tu usuario"
+            required
+            autocomplete="username"
+        >
+
+        <label for="password">Contraseña</label>
+        <div class="password-field">
+            <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Ingresa tu contraseña"
+                required
+                autocomplete="current-password"
+            >
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+        <p style="color: var(--color-text-light); font-size: 0.9rem;">
+            ¿No tienes una cuenta? 
+            <a href="/register" style="color: var(--color-primary); text-decoration: none; font-weight: 600;">Regístrate aquí</a>
+        </p>
+    </div>
+
+</div>
+
+<script>
+function togglePassword() {
+    const input = document.getElementById("password");
+    const toggle = document.querySelector(".toggle-password");
+    
+    if (input.type === "password") {
+        input.type = "text";
+        toggle.textContent = "🙈";
+    } else {
+        input.type = "password";
+        toggle.textContent = "👁️";
+    }
+}
+</script>
+{% endblock %}

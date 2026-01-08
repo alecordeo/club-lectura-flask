@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Préstamos</h2>
+
+{# =========================
+   MENSAJES FLASH
+   ========================= #}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h3>Registrar préstamo</h3>
+<form method="POST">
+    {# 🔹 Ya no se elige socio: es el usuario logueado #}
+
+    <select name="libro" required>
+        <option value="">Selecciona un libro</option>
+        {% for libro in libros %}
+            <option value="{{ libro.id }}">{{ libro.titulo }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+<hr>
+
+<h3>Lista de préstamos</h3>
+<table>
+    <tr>
+        <th>Responsable</th>
+        <th>Libro</th>
+        <th>Fecha inicio</th>
+        <th>Estado</th>
+        <th>Acción</th>
+    </tr>
+
+    {% for prestamo in prestamos %}
+    <tr>
+        <td>
+            {% if prestamo.usuario %}
+                {{ prestamo.usuario.nombre }}
+            {% else %}
+                {{ prestamo.socio.nombre }}
+            {% endif %}
+        </td>
+
+        <td>{{ prestamo.libro.titulo }}</td>
+        <td>{{ prestamo.fecha_inicio }}</td>
+
+        <td>
+            {% if prestamo.fecha_fin %}
+                Devuelto ({{ prestamo.fecha_fin }})
+            {% else %}
+                Activo
+            {% endif %}
+        </td>
+
+        <td>
+            {% if not prestamo.fecha_fin %}
+                {% if session.get("rol") == "admin" or prestamo.usuario_id == session["user_id"] %}
+                    <form method="POST" action="/prestamos/cerrar/{{ prestamo.id }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Cerrar</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

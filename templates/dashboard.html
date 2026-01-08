@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+
+    <h2>Dashboard</h2>
+
+    <!-- =========================
+         TARJETAS NUMÉRICAS
+         ========================= -->
+    <div class="dashboard-grid">
+        <div class="card metric">
+            <h4>Total de libros</h4>
+            <p class="metric-number">{{ total_libros }}</p>
+        </div>
+
+        <div class="card metric">
+            <h4>Usuarios registrados</h4>
+            <p class="metric-number">{{ total_usuarios }}</p>
+        </div>
+
+        <div class="card metric">
+            <h4>Préstamos activos</h4>
+            <p class="metric-number">{{ prestamos_activos }}</p>
+        </div>
+
+        <div class="card metric">
+            <h4>Préstamos cerrados</h4>
+            <p class="metric-number">{{ prestamos_cerrados }}</p>
+        </div>
+    </div>
+
+    <!-- =========================
+         GRÁFICAS
+         ========================= -->
+    <div class="dashboard-grid" style="margin-top: 30px;">
+
+        <!-- Donut -->
+        <div class="card">
+            <h3>Estado de préstamos</h3>
+            <canvas id="prestamosEstadoChart"></canvas>
+        </div>
+
+        <!-- Préstamos por mes -->
+        <div class="card">
+            <h3>Préstamos por mes</h3>
+            <canvas id="prestamosMesChart"></canvas>
+        </div>
+
+        <!-- Libros más prestados -->
+        <div class="card">
+            <h3>Libros más prestados</h3>
+            <canvas id="librosChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+/* ===== Donut: activos vs cerrados ===== */
+new Chart(
+    document.getElementById('prestamosEstadoChart'),
+    {
+        type: 'doughnut',
+        data: {
+            labels: ['Activos', 'Cerrados'],
+            datasets: [{
+                data: [
+                    {{ prestamos_activos }},
+                    {{ prestamos_cerrados }}
+                ],
+                backgroundColor: ['#2563eb', '#9ca3af']
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    }
+);
+
+/* ===== Barras: préstamos por mes ===== */
+new Chart(
+    document.getElementById('prestamosMesChart'),
+    {
+        type: 'bar',
+        data: {
+            labels: {{ meses | tojson }},
+            datasets: [{
+                label: 'Préstamos',
+                data: {{ totales | tojson }},
+                backgroundColor: '#2563eb'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            }
+        }
+    }
+);
+
+/* ===== Barras: libros más prestados ===== */
+new Chart(
+    document.getElementById('librosChart'),
+    {
+        type: 'bar',
+        data: {
+            labels: {{ titulos_libros | tojson }},
+            datasets: [{
+                label: 'Veces prestado',
+                data: {{ totales_libros | tojson }},
+                backgroundColor: '#1f2937'
+            }]
+        },
+        options: {
+            indexAxis: 'y',  // barras horizontales
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            }
+        }
+    }
+);
+</script>
+
+{% endblock %}

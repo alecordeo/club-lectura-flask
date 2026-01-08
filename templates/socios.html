@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Socios</h2>
+
+<h3>Agregar socio</h3>
+<form method="POST">
+    <input type="text" name="nombre" placeholder="Nombre" required><br>
+    <input type="email" name="correo" placeholder="Correo" required><br>
+
+    <select name="club" required>
+        <option value="">Selecciona un club</option>
+        {% for club in clubes %}
+            <option value="{{ club.id }}">{{ club.nombre }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<hr>
+
+<h3>Lista de socios</h3>
+<table border="1">
+    <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Club</th>
+    </tr>
+
+    {% for socio in socios %}
+    <tr>
+        <td>{{ socio.nombre }}</td>
+        <td>{{ socio.correo }}</td>
+        <td>{{ socio.club.nombre }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
