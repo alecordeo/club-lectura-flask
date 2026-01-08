@@ -5,6 +5,9 @@ from sqlalchemy.sql import extract
 from datetime import date
 from functools import wraps
 
+import os
+from seed_data import seed_database
+
 from database import SessionLocal, engine
 from models import Base, Club, Libro, Prestamo, Resena, Usuario
 
@@ -15,6 +18,9 @@ app.secret_key = "clave-secreta-club-lectura"
 # Crear tablas si no existen
 Base.metadata.create_all(bind=engine)
 
+# Ejecutar seed SOLO si la variable existe
+if os.environ.get("RUN_SEED") == "true":
+    seed_database()
 
 # =========================
 # LOGIN REQUIRED
