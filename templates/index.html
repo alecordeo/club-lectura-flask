@@ -4,19 +4,8 @@
     <meta charset="UTF-8">
     <title>In Corde</title>
 
-    {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    {% endblock %}
 </head>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        if (window.twttr && twttr.widgets) {
-            twttr.widgets.load();
-        }
-    });
-</script>
 
 <body>
 
@@ -26,9 +15,7 @@
 
     <nav>
         {% if session.get("username") %}
-            <span class="user-info">
-                👤 {{ session["username"] }}
-            </span>
+            <span class="user-info">👤 {{ session["username"] }}</span>
             <a href="/libros">Entrar</a>
             <a href="/logout">Salir</a>
         {% else %}
@@ -73,42 +60,37 @@
 <!-- EXTRA / SOCIAL FEEDS -->
 <section class="extra">
     <h2>Próximamente</h2>
-    <p>
-        Noticias y novedades del mundo editorial.
-    </p>
+    <p>Noticias y novedades del mundo editorial.</p>
 
     <div class="social-panels">
 
-        <!-- Librerías Gandhi -->
         <div class="social-panel">
             <h3>📚 Librerías Gandhi</h3>
             <a class="twitter-timeline"
                data-height="450"
                data-theme="dark"
+               data-chrome="noheader nofooter"
                href="https://twitter.com/LibreriasGandhi">
-               Tweets de Librerías Gandhi
+                Tweets de Librerías Gandhi
             </a>
         </div>
 
-        <!-- El Péndulo -->
         <div class="social-panel">
             <h3>📖 Librería El Péndulo</h3>
             <a class="twitter-timeline"
                data-height="450"
                data-theme="dark"
+               data-chrome="noheader nofooter"
                href="https://twitter.com/El_Pendulo">
-               Tweets de El Péndulo
+                Tweets de El Péndulo
             </a>
         </div>
 
     </div>
 </section>
 
-<!-- Script oficial de X (Twitter) -->
+<!-- SCRIPT DE X (UNA SOLA VEZ, AL FINAL) -->
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </body>
 </html>
-
-<!-- Script oficial de X (Twitter) -->
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
