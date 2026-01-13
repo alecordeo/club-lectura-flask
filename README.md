@@ -9,15 +9,15 @@ Proyecto desarrollado con Flask + PostgreSQL, siguiendo principios de normalizac
 
 Registro e inicio de sesión
 
-Roles:
+Gestión de roles:
 
 Admin
 
 User
 
-Gestión de roles (asignar / quitar administrador)
+Asignación y revocación de permisos de administrador
 
-Asociación de usuarios a clubes
+Asociación de usuarios a clubes de lectura
 
 🏛️ Clubes (solo Admin)
 
@@ -31,27 +31,27 @@ Asignar usuarios a clubes
 
 📚 Libros
 
-Registrar libros
+Registro de libros
 
-Listar libros disponibles
+Listado de libros disponibles
 
 Información de autor, editorial y año
 
 🔁 Préstamos
 
-Registrar préstamos
+Registro de préstamos
 
 Validación de disponibilidad de libros
 
 Cierre de préstamos
 
-Historial de préstamos
+Historial completo de préstamos
 
 ✍️ Reseñas
 
-Crear reseñas de libros
+Creación de reseñas de libros
 
-Calificación (1 a 5)
+Calificación de 1 a 5 estrellas
 
 Comentarios asociados a usuarios y libros
 
@@ -63,7 +63,7 @@ Total de usuarios
 
 Préstamos activos y cerrados
 
-Gráficas con Chart.js
+Visualización de datos con Chart.js:
 
 Estado de préstamos
 
@@ -119,7 +119,7 @@ club-lectura/
 
 🧱 Base de datos y Normalización
 
-La base de datos está diseñada siguiendo Tercera Forma Normal (3FN):
+La base de datos está diseñada siguiendo la Tercera Forma Normal (3FN):
 
 Cada tabla representa una sola entidad
 
@@ -127,9 +127,9 @@ No existen dependencias parciales
 
 No hay dependencias transitivas
 
-Relaciones mediante claves foráneas
+Relaciones implementadas mediante claves foráneas
 
-Tablas principales:
+Tablas principales
 
 usuarios
 
@@ -141,13 +141,15 @@ prestamos
 
 resenas
 
-📄 El archivo database.sql contiene:
+📄 Archivo database.sql
+
+Incluye:
 
 Creación completa de tablas
 
 Llaves primarias y foráneas
 
-Restricciones
+Restricciones de integridad
 
 Datos de prueba
 
@@ -158,16 +160,16 @@ cd club-lectura
 
 2️⃣ Crear entorno virtual
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate   # Windows: venv\Scripts\activate
 
 3️⃣ Instalar dependencias
 pip install -r requirements.txt
 
 4️⃣ Configurar base de datos
 
-Crear una base de datos PostgreSQL
+Crear una base de datos en PostgreSQL
 
-Ajustar variables de entorno o DATABASE_URL
+Configurar las variables de entorno o DATABASE_URL
 
 5️⃣ Ejecutar la aplicación
 flask run
@@ -180,15 +182,20 @@ Base de datos PostgreSQL gestionada por Render
 
 Variables de entorno para conexión segura
 
-Inicialización automática de la app
+Inicialización automática de la aplicación
 
 📌 Notas finales
 
 El rol Admin controla las secciones críticas del sistema
 
-El sistema es escalable (ej. fotos de perfil, notificaciones, API)
+El sistema es escalable (ej. fotos de perfil, notificaciones, API REST)
 
 Proyecto diseñado con enfoque académico y práctico
+
+Documentación
+<img width="921" height="416" alt="image" src="https://github.com/user-attachments/assets/edb2fe17-7145-4652-9374-72ad9c8793ce" />
+<img width="921" height="550" alt="image" src="https://github.com/user-attachments/assets/c3368148-e7b9-4e6a-83fc-9313c713474d" />
+
 
 ✍️ Autor
 
